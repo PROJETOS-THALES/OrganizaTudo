@@ -5,11 +5,11 @@ import {
     TextInput,
 } from 'react-native';
 
-export default function MyInput({ placeholder, onChangeText, }) {
+export default function MyPasswordInput({ placeholder, onChangeText, }) {
     return (
 
-        <TextInput style={styles.Input} placeholder={placeholder}
-            onChangeText={onChangeText}></TextInput>
+        <TextInput style={styles.Input} placeholder={'Senha'}
+            onChangeText={onChangeText} secureTextEntry={true}></TextInput>
 
     );
 }
