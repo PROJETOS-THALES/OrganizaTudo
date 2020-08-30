@@ -9,9 +9,9 @@ export default createStackNavigator(
     },
     {
         navigationOptions: {
-            headerStyle: { backgroundColor: "#DA552F" },
+            headerStyle: { backgroundColor: "#35C0ED" },
             headerTintColor: "#FFF",
-            
+            header: null
         }
     },
 );

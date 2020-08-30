@@ -7,10 +7,10 @@ import {
     Text,
 } from 'react-native';
 
-export default function MyButton({text, onPress}) {
+export default function MyButton({ text, onPress }) {
     return (
 
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPress} style={styles.view}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>{text}</Text>
             </View>
@@ -20,11 +20,14 @@ export default function MyButton({text, onPress}) {
 }
 
 const styles = StyleSheet.create({
+    view: {
+        width: '100%'
+    },
     button: {
+        width: '100%',
         borderRadius: 8,
-        paddingVertical: 12,
-        paddingHorizontal: 100,
-        backgroundColor: "#DA552F"
+        padding: 20,
+        backgroundColor: "#35C0ED"
     },
     buttonText: {
         color: "#FFF",
