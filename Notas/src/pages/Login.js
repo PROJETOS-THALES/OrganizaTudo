@@ -12,8 +12,36 @@ import {
 
 export default class App extends Component {
   render() {
+
     var Apelido = '';
     var Senha = '';
+
+    function Login() {
+
+      fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/Login', {
+
+        method: 'POST',
+        body: JSON.stringify({
+          apelido: arguments[0],
+          senha: arguments[1],
+        })
+
+      }).then((response) => response.json()).
+        then((responseJson) => {
+
+          if (responseJson == '200') {
+            alert('Bem Vindo ' + arguments[0] + '!');
+            Keyboard.dismiss();
+          } else if (responseJson == '404') {
+            alert('Usuário "' + arguments[0] + '" não encontrado!');
+          } else {
+            alert('Obtivemos um problema ao buscar o Usuário, por favor tente novamente...');
+          }
+
+        });
+
+    }
+
     return (
       <View>
 
@@ -28,30 +56,24 @@ export default class App extends Component {
 
         <View style={styles.Footer}>
           <MyButton text="Acessar"
-            onPress={
-              () => {
-                if (
-                  this.Apelido != "" && this.Apelido != undefined &&
-                  this.Senha != "" && this.Senha != undefined) {
-                  Keyboard.dismiss();
-                  alert('Bem Vindo ' + this.Apelido + '!!!');
-                  this.props.navigation.push('Main');
-                } else {
-                  alert('Preencha todos os campos!!!');
-                }
-              }}
+            onPress={() => {
+              if (this.Apelido != "" && this.Apelido != undefined && this.Senha != "" && this.Senha != undefined) {
+                Login(this.Apelido, this.Senha);
+              } else {
+                alert('Preencha todos os campos!!!');
+              }
+            }}
           />
         </View>
 
         <View style={styles.Links}>
-          <Text style={styles.Link}>Criar uma Conta</Text>
-          <Text style={styles.Link}>Esqueci minha senha</Text>
+          <Text style={styles.Link} onPress={() => {this.props.navigation.push('Main')}}>Criar uma Conta</Text>
+          <Text style={styles.Link} onPress={() => {this.props.navigation.push('Main')}}>Esqueci minha senha</Text>
         </View>
 
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
