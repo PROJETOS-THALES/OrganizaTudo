@@ -3,21 +3,23 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import {
-    View
+    View,
+    Text
 } from 'react-native';
 
 const Stack = createStackNavigator();
 
 import Login from '../paginas/Login';
-import Inicio from '../paginas/Inicio';
 import CriarConta from '../paginas/CriarConta';
 import RecuperarSenha from '../paginas/RecuperarSenha';
+import Inicio from './TabRoutes';
 
 export default function Routes() {
     return (
         <NavigationContainer>
             <StatusBar barStyle='light-content' backgroundColor='#35C0ED' />
             <Stack.Navigator
+
                 screenOptions={
                     {
                         headerStyle: {
@@ -30,22 +32,6 @@ export default function Routes() {
                 <Stack.Screen name="Login" component={Login}
                     options={{
                         headerShown: false
-                    }}
-                />
-
-                <Stack.Screen name="Inicio" component={Inicio}
-                    options={{
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            alignSelf: 'center'
-                        },
-                        headerShown: true,
-                        title: 'SUA ORGANIZAÇÃO:',
-                        headerLeft: () => (
-                            <View />
-                        ), headerRight: () => (
-                            <View />
-                        )
                     }}
                 />
 
@@ -73,6 +59,33 @@ export default function Routes() {
                         title: 'RECUPERAR SENHA',
                         headerRight: () => (
                             <View />
+                        )
+                    }}
+                />
+
+                <Stack.Screen name="Inicio" component={Inicio}
+                    options={{
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                        headerShown: true,
+                        title: 'SUA ORGANIZAÇÃO',
+                        headerLeft: () => (
+                            <View />
+                        ), headerRight: () => (
+                            <View>
+                                <Text
+                                    style={{
+                                        margin: 25,
+                                        color: '#FFF',
+                                        fontSize: 17,
+                                    }}
+                                    onPress={() => {
+                                        alert('Sair')
+                                    }}
+                                >Sair</Text>
+                            </View>
                         )
                     }}
                 />

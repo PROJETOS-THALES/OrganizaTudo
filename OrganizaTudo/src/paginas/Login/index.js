@@ -48,7 +48,7 @@ export default function App({ navigation }) {
     <View>
 
       <View style={styles.Header}>
-        <Text style={styles.Titulo}>ORGANIZA TUDO {Apelido}</Text>
+        <Text style={styles.Titulo}>ORGANIZATUDO {Apelido}</Text>
       </View>
 
       <View style={styles.Body}>

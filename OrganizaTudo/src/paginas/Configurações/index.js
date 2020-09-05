@@ -12,7 +12,7 @@ export default class App extends Component {
     render() {
         return (
             <View>
-                <Text>Recuperar Senha</Text>
+                <Text>Configurações</Text>
             </View>
         );
     }
