@@ -29,13 +29,14 @@ export default class App extends Component {
       }).then((response) => response.json()).
         then((responseJson) => {
 
-          if (responseJson == '200') {
-            alert('Bem Vindo ' + arguments[0] + '!');
-            Keyboard.dismiss();
+          if (responseJson == '500') {
+            alert('Obtivemos um problema ao buscar o Usuário, por favor tente novamente...');
           } else if (responseJson == '404') {
             alert('Usuário "' + arguments[0] + '" não encontrado!');
           } else {
-            alert('Obtivemos um problema ao buscar o Usuário, por favor tente novamente...');
+            // responseJson.$oid - id
+            alert('Bem Vindo ' + arguments[0] + '!');
+            Keyboard.dismiss();
           }
 
         });
