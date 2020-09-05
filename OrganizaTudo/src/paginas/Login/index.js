@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Keyboard } from 'react-native';
-import MyButton from '../../components/button';
-import MyInput from '../../components/input';
-import MyPasswordInput from '../../components/password-input';
+import MyButton from '../../componentes/botao-padrao';
+import MyInput from '../../componentes/campo-padrao';
+import MyPasswordInput from '../../componentes/campo-senha';
 
 import {
   StyleSheet,
@@ -69,8 +69,8 @@ export default function App({ navigation }) {
       </View>
 
       <View style={styles.Links}>
-        <Text style={styles.Link} onPress={() => { /*navigation.navigate('Inicio')*/ }}>Criar uma Conta</Text>
-        <Text style={styles.Link} onPress={() => { /*navigation.navigate('Inicio')*/ }}>Esqueci minha senha</Text>
+        <Text style={styles.Link} onPress={() => { navigation.navigate('CriarConta') }}>Criar uma Conta</Text>
+        <Text style={styles.Link} onPress={() => { navigation.navigate('RecuperarSenha') }}>Esqueci minha senha</Text>
       </View>
 
     </View>
