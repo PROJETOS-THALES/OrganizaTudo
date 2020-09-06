@@ -37,7 +37,7 @@ export default function App({ navigation }) {
           // responseJson.$oid - id
           Alert.alert('Sucesso!', 'Bem Vindo ' + arguments[0] + '!', null);
           Keyboard.dismiss();
-          navigation.navigate('Inicio');
+          navigation.navigate('Inicio', { screen: 'Notas' });
         }
 
       });
@@ -51,9 +51,9 @@ export default function App({ navigation }) {
         <Text style={styles.Titulo}>ORGANIZATUDO {Apelido}</Text>
       </View>
 
-      <View style={styles.Body}>
-        <MyInput placeholder={'Apelido'} onChangeText={(val) => this.Apelido = val} />
-        <MyPasswordInput onChangeText={(val) => this.Senha = val} />
+      <View style={styles.Body} >
+        <MyInput focusable={true} placeholder={'Apelido'} onChangeText={(val) => this.Apelido = val} />
+        <MyPasswordInput focusable={true} onChangeText={(val) => this.Senha = val} />
       </View>
 
       <View style={styles.Footer}>
