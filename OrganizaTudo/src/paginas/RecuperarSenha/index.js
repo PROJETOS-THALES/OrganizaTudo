@@ -11,7 +11,7 @@ import {
 export default class App extends Component {
     render() {
         return (
-            <View>
+            <View style={styles.Header}>
                 <Text>Recuperar Senha</Text>
             </View>
         );
@@ -19,5 +19,8 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    Header: {
+        alignItems: 'center',
+        marginTop: 50
+    }
 });

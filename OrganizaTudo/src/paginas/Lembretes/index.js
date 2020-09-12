@@ -11,7 +11,7 @@ import {
 export default class App extends Component {
     render() {
         return (
-            <View>
+            <View style={styles.Container}>
                 <Text>Lembretes</Text>
             </View>
         );
@@ -19,5 +19,9 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    Container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });

@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { StatusBar } from 'react-native';
 import {
     View,
@@ -14,7 +15,7 @@ import CriarConta from '../paginas/CriarConta';
 import RecuperarSenha from '../paginas/RecuperarSenha';
 import Inicio from './TabRoutes';
 
-export default function Routes() {
+export default function Routes({ navigation }) {
     return (
         <NavigationContainer>
             <StatusBar barStyle='light-content' backgroundColor='#35C0ED' />
@@ -74,18 +75,7 @@ export default function Routes() {
                         headerLeft: () => (
                             <View />
                         ), headerRight: () => (
-                            <View>
-                                <Text
-                                    style={{
-                                        margin: 25,
-                                        color: '#FFF',
-                                        fontSize: 17,
-                                    }}
-                                    onPress={() => {
-                                        alert('Sair')
-                                    }}
-                                >Sair</Text>
-                            </View>
+                            <View />
                         )
                     }}
                 />
