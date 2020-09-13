@@ -56,7 +56,6 @@ export default class App extends Component {
                   })
                 }).then((response) => response.json()).
                   then((responseJson) => {
-
                     if (responseJson == '500') {
                       Alert.alert('Erro!', 'Obtivemos um problema ao buscar o Usuário, por favor tente novamente...', null);
                     }
