@@ -19,7 +19,7 @@ export default class App extends Component {
 
     buscarNotas = async () => {
 
-        fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/getNotas', {
+        fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/buscarNotas', {
             method: 'POST',
             body: JSON.stringify({
                 "usuario": await AsyncStorage.getItem('USERLOGGED')
