@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
     StyleSheet, View, Text, Alert,
@@ -11,11 +10,10 @@ export default class App extends Component {
     render() {
         return (
             <View style={styles.ContainerSair}>
-                <Text
-                    style={styles.Sair}
 
+                <Icon style={styles.floatingSair} name={"power-off"} size={60} color={'#35C0ED'}
                     onPress={() => {
-                        AsyncStorage.removeItem('USERLOGGED');
+
                         Alert.alert(
                             'Tem certeza? ',
                             'Se você sair, será necessário efetuar Login novamente para acessar sua conta!',
@@ -28,13 +26,15 @@ export default class App extends Component {
                                 {
                                     text: 'Sair',
                                     style: 'destructive',
-                                    onPress: () => this.props.navigation.navigate('Login'),
+                                    onPress: () => {
+                                        AsyncStorage.removeItem('USERLOGGED')
+                                        this.props.navigation.navigate('Login')
+                                    }
                                 },
                             ]
                         );
-                    }}
+                    }} />
 
-                >Sair</Text>
             </View >
         );
     }
@@ -46,7 +46,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    Sair: {
-        fontSize: 40
+    floatingSair: {
+        position: "absolute",
+        right: 10,
+        top: 10
     }
 });

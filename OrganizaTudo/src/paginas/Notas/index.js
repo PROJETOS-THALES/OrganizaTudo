@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
     StyleSheet, View, Text, FlatList, TouchableOpacity, TextInput,
@@ -37,17 +36,20 @@ export default class App extends Component {
         return (
             <View>
 
-                {/* <TextInput placeholder={'Título da Nota'} style={styles.notaBusca}></TextInput> */}
+                <View style={styles.ContainerOpcoes}>
+                    <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}></TextInput>
+                    <Icon style={styles.btnCriarNota} name={"plus-circle"} size={60} color={'#35C0ED'} />
+                </View>
 
-                <FlatList style={styles.notaLista}
+                <FlatList style={styles.ContainerListagemNota}
                     data={this.state.notas} keyExtractor={item => item._id.$oid}
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => { alert('acessar') }} onLongPress={() => { alert('deletar') }}>
-                            <View style={styles.Container}>
-                                <Text style={styles.notaTitulo}>
+                            <View style={styles.ContainerNotas}>
+                                <Text style={styles.ContainerTituloNota}>
                                     {item.titulo}
                                 </Text>
-                                <Text style={styles.notaConteudo}>
+                                <Text style={styles.ContainerConteudoNota}>
                                     {item.nota}
                                 </Text>
                             </View>
@@ -61,34 +63,41 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-    Container: {
+    ContainerListagemNota: {
+        marginTop: 5,
+        marginBottom: 100
+    },
+    ContainerNotas: {
         margin: 15,
         marginTop: 0,
         backgroundColor: '#fafafa',
         borderWidth: 0.3,
         borderColor: '#35C0ED',
         padding: 20,
-        flex: 1,
+        flexDirection: 'column'
     },
-    notaBusca: {
-        marginRight: 15,
-        marginLeft: 15,
-        marginBottom: 10,
-        marginTop: 10,
-        padding: 10,
-        borderWidth: 0.3,
-        borderRadius: 5
-    },
-    notaLista: {
-        marginTop: 15
-    },
-    notaTitulo: {
+    ContainerTituloNota: {
         fontSize: 30,
         marginBottom: 10,
     },
-    notaConteudo: {
+    ContainerConteudoNota: {
         fontSize: 18,
         color: '#999',
         lineHeight: 25
+    },
+    ContainerOpcoes: {
+        flexDirection: 'row'
+    },
+    txtBuscarNota: {
+        flex: 1,
+        margin: 15,
+        marginBottom: 10,
+        padding: 10,
+        borderWidth: 0.3,
+        borderRadius: 5,
+    },
+    btnCriarNota: {
+        margin: 10,
+        marginLeft: 0
     }
 });
