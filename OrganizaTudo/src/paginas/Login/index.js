@@ -21,9 +21,11 @@ export default class App extends Component {
     var Apelido = '';
     var Senha = '';
 
-    GravarDados = async (ObjectID) => {
+    GravarDados = async (ObjectID, apelido, senha) => {
       try {
         AsyncStorage.setItem('USERLOGGED', ObjectID);
+        AsyncStorage.setItem('USERLOGIN', apelido);
+        AsyncStorage.setItem('USERSECURITYCODE', senha);
       }
       catch (e) {
         Alert.alert('Erro!', e, null);
@@ -64,7 +66,7 @@ export default class App extends Component {
                     }
                     else {
                       // responseJson.$oid;
-                      GravarDados(responseJson.$oid);
+                      GravarDados(responseJson.$oid, this.Apelido, this.Senha);
                       Keyboard.dismiss();
                       this.props.navigation.navigate('Inicio', { screen: 'Notas' });
                     }

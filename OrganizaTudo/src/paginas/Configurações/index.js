@@ -15,7 +15,7 @@ export default class App extends Component {
                     onPress={() => {
 
                         Alert.alert(
-                            'Tem certeza? ',
+                            'Tem certeza?',
                             'Se você sair, será necessário efetuar Login novamente para acessar sua conta!',
                             [
                                 {
@@ -28,6 +28,8 @@ export default class App extends Component {
                                     style: 'destructive',
                                     onPress: () => {
                                         AsyncStorage.removeItem('USERLOGGED')
+                                        AsyncStorage.removeItem('USERLOGIN')
+                                        AsyncStorage.removeItem('USERSECURITYCODE')
                                         this.props.navigation.navigate('Login')
                                     }
                                 },

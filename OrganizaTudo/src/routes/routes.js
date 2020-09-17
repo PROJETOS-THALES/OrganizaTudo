@@ -1,12 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
 import { StatusBar } from 'react-native';
-import {
-    View,
-    Text
-} from 'react-native';
+import { View } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +10,8 @@ import Login from '../paginas/Login';
 import CriarConta from '../paginas/CriarConta';
 import RecuperarSenha from '../paginas/RecuperarSenha';
 import Inicio from './TabRoutes';
+import CriarNota from '../paginas/CriarNota';
+import EditarNota from '../paginas/EditarNota';
 
 export default function Routes({ navigation }) {
     return (
@@ -75,6 +73,34 @@ export default function Routes({ navigation }) {
                         headerLeft: () => (
                             <View />
                         ), headerRight: () => (
+                            <View />
+                        )
+                    }}
+                />
+
+                <Stack.Screen name="CriarNota" component={CriarNota}
+                    options={{
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                        headerShown: true,
+                        title: 'CRIAR NOTA',
+                        headerRight: () => (
+                            <View />
+                        )
+                    }}
+                />
+
+                <Stack.Screen name="EditarNota" component={EditarNota}
+                    options={{
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            alignSelf: 'center'
+                        },
+                        headerShown: true,
+                        title: 'EDITAR NOTA',
+                        headerRight: () => (
                             <View />
                         )
                     }}

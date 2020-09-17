@@ -38,18 +38,34 @@ export default class App extends Component {
 
                 <View style={styles.ContainerOpcoes}>
                     <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}></TextInput>
-                    <Icon style={styles.btnCriarNota} name={"plus-circle"} size={60} color={'#35C0ED'} />
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate('CriarNota');
+                        }} >
+                        <Icon style={styles.btnCriarNota} name={"plus-circle"} size={60} color={'#35C0ED'} />
+                    </TouchableOpacity>
                 </View>
 
                 <FlatList style={styles.ContainerListagemNota}
                     data={this.state.notas} keyExtractor={item => item._id.$oid}
                     renderItem={({ item }) => (
-                        <TouchableOpacity onPress={() => { alert('acessar') }} onLongPress={() => { alert('deletar') }}>
+                        <TouchableOpacity
+
+                            onPress={() => {
+                                this.props.navigation.navigate('EditarNota', {
+                                    titulo: item.titulo,
+                                });
+                            }}
+
+                            onLongPress={() => {
+                                alert('deletar')
+                            }}>
+
                             <View style={styles.ContainerNotas}>
                                 <Text style={styles.ContainerTituloNota}>
                                     {item.titulo}
                                 </Text>
-                                <Text style={styles.ContainerConteudoNota}>
+                                <Text style={styles.ContainerConteudoNota} numberOfLines={3}>
                                     {item.nota}
                                 </Text>
                             </View>
