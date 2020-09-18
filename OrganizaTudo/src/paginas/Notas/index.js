@@ -31,13 +31,39 @@ export default class App extends Component {
 
     }
 
+    buscarNota = async (Titulo) => {
+
+        if (Titulo == "") {
+            this.buscarNotas();
+        }
+        else {
+            fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/buscarNotas', {
+                method: 'POST',
+                body: JSON.stringify({
+                    "usuario": await AsyncStorage.getItem('USERLOGGED'),
+                    "titulo": Titulo
+                })
+            })
+                .then((response) => response.json()).
+                then((responseJson) => {
+                    this.setState({ notas: responseJson });
+                });
+        }
+    }
+
     render() {
 
         return (
             <View>
 
                 <View style={styles.ContainerOpcoes}>
-                    <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}></TextInput>
+
+                    <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}
+                        onChangeText={(value) => {
+                            this.buscarNota(value);
+                        }}
+                    ></TextInput>
+
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('CriarNota');
