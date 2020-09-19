@@ -10,6 +10,9 @@ export default class App extends Component {
         Nota: ''
     }
 
+
+
+
     criarNota = async () => {
 
         var USERLOGIN = await AsyncStorage.getItem('USERLOGIN');
@@ -64,6 +67,9 @@ export default class App extends Component {
     }
 
     render() {
+
+        var click = false;
+
         return (<View>
 
             <TextInput style={styles.Titulo} placeholder={'Título'}
@@ -81,7 +87,12 @@ export default class App extends Component {
             <View>
                 <Icon style={styles.floatingSalvar} name={'save'} size={60} color={'#35C0ED'}
                     onPress={() => {
-                        this.criarNota();
+
+                        if (!click) {
+                            click = true;
+                            this.criarNota();
+                        }
+
                     }}
                 />
             </View>
