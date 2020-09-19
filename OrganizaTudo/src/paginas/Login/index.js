@@ -50,28 +50,32 @@ export default class App extends Component {
             onPress={() => {
               if (this.Apelido != "" && this.Apelido != undefined && this.Senha != "" && this.Senha != undefined) {
 
-                fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/Login', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    apelido: this.Apelido,
-                    senha: this.Senha,
+                fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/Login',
+                  {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      apelido: this.Apelido,
+                      senha: this.Senha,
+                    })
                   })
-                }).then((response) => response.json()).
-                  then((responseJson) => {
-                    if (responseJson == '500') {
-                      Alert.alert('Erro!', 'Obtivemos um problema ao buscar o Usuário, por favor tente novamente...', null);
-                    }
-                    else if (responseJson == '404') {
-                      Alert.alert('Erro!', 'Usuário "' + this.Apelido + '" não encontrado!', null);
-                    }
-                    else {
-                      // responseJson.$oid;
-                      GravarDados(responseJson.$oid, this.Apelido, this.Senha);
-                      Keyboard.dismiss();
-                      this.props.navigation.navigate('Inicio', { screen: 'Notas' });
-                    }
+                  .then((response) => response.json())
+                  .then(
+                    (responseJson) => {
+                      if (responseJson == '500') {
+                        Alert.alert('Erro!', 'Obtivemos um problema ao buscar o Usuário, por favor tente novamente...', null);
+                      }
+                      else if (responseJson == '404') {
+                        Alert.alert('Erro!', 'Usuário "' + this.Apelido + '" não encontrado!', null);
+                      }
+                      else {
+                        // responseJson.$oid;
+                        GravarDados(responseJson.$oid, this.Apelido, this.Senha);
+                        Keyboard.dismiss();
+                        this.props.navigation.navigate('Inicio', { screen: 'Notas' });
+                      }
 
-                  });
+                    }
+                  );
 
               }
               else {

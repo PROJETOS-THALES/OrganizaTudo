@@ -33,7 +33,7 @@ export default class App extends Component {
 
     buscarNota = async (Titulo) => {
 
-        if (Titulo == "") {
+        if (Titulo == '') {
             this.buscarNotas();
         }
         else {
@@ -60,7 +60,7 @@ export default class App extends Component {
 
                     <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}
                         onChangeText={(value) => {
-                            this.buscarNota(value);
+                            this.buscarNota(value + '');
                         }}
                     ></TextInput>
 
@@ -80,6 +80,7 @@ export default class App extends Component {
                             onPress={() => {
                                 this.props.navigation.navigate('EditarNota', {
                                     titulo: item.titulo,
+                                    nota: item.nota
                                 });
                             }}
 
