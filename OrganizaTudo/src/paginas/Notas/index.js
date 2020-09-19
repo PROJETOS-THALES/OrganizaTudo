@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import {
     StyleSheet, View, Text, FlatList, TouchableOpacity, TextInput,
 } from 'react-native';
 
-export default class App extends Component {
+export default function App({ navigation }) {
 
-    state = {
-        notas: []
-    }
+    const [notas, setNotas] = useState([]);
 
-    componentDidMount() {
-        this.buscarNotas();
-    }
+    // componentDidMount
+    useEffect(() => {
+        buscarNotas();
+    }, [])
 
-    buscarNotas = async () => {
+    // componentDidUpdate
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            buscarNotas();
+        });
+        return unsubscribe;
+    }, [navigation])
+
+    const buscarNotas = async () => {
 
         fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/buscarNotas', {
             method: 'POST',
@@ -26,12 +32,12 @@ export default class App extends Component {
         })
             .then((response) => response.json()).
             then((responseJson) => {
-                this.setState({ notas: responseJson });
+                setNotas(responseJson);
             });
 
     }
 
-    buscarNota = async (Titulo) => {
+    const buscarNota = async (Titulo) => {
 
         if (Titulo == '') {
             this.buscarNotas();
@@ -46,63 +52,71 @@ export default class App extends Component {
             })
                 .then((response) => response.json()).
                 then((responseJson) => {
-                    this.setState({ notas: responseJson });
+                    setNotas(responseJson);
                 });
         }
     }
 
-    render() {
+    /*React.useEffect(() => {
+        const unsubscribe = this.props.navigation.addListener('focus', () => {
+            // The screen is focused
+            // Call any action
+        });
 
-        return (
-            <View>
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return unsubscribe;
+    }, [this.props.navigation]);*/
 
-                <View style={styles.ContainerOpcoes}>
+    return (
+        <View>
 
-                    <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}
-                        onChangeText={(value) => {
-                            this.buscarNota(value + '');
-                        }}
-                    ></TextInput>
+            <View style={styles.ContainerOpcoes}>
 
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.navigate('CriarNota');
-                        }} >
-                        <Icon style={styles.btnCriarNota} name={"plus-circle"} size={60} color={'#35C0ED'} />
-                    </TouchableOpacity>
-                </View>
+                <TextInput placeholder={'Buscar Nota'} style={styles.txtBuscarNota}
+                    onChangeText={(value) => {
+                        buscarNota(value + '');
+                    }}
+                ></TextInput>
 
-                <FlatList style={styles.ContainerListagemNota}
-                    data={this.state.notas} keyExtractor={item => item._id.$oid}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-
-                            onPress={() => {
-                                this.props.navigation.navigate('EditarNota', {
-                                    titulo: item.titulo,
-                                    nota: item.nota
-                                });
-                            }}
-
-                            onLongPress={() => {
-                                alert('deletar')
-                            }}>
-
-                            <View style={styles.ContainerNotas}>
-                                <Text style={styles.ContainerTituloNota}>
-                                    {item.titulo}
-                                </Text>
-                                <Text style={styles.ContainerConteudoNota} numberOfLines={3}>
-                                    {item.nota}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    )}
-                />
-
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('CriarNota');
+                    }} >
+                    <Icon style={styles.btnCriarNota} name={"plus-circle"} size={60} color={'#35C0ED'} />
+                </TouchableOpacity>
             </View>
-        );
-    }
+
+            <FlatList style={styles.ContainerListagemNota}
+                data={notas} keyExtractor={item => item._id.$oid}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+
+                        onPress={() => {
+                            navigation.navigate('EditarNota', {
+                                titulo: item.titulo,
+                                nota: item.nota
+                            });
+                        }}
+
+                        onLongPress={() => {
+                            alert('deletar')
+                        }}>
+
+                        <View style={styles.ContainerNotas}>
+                            <Text style={styles.ContainerTituloNota}>
+                                {item.titulo}
+                            </Text>
+                            <Text style={styles.ContainerConteudoNota} numberOfLines={3}>
+                                {item.nota}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                )}
+            />
+
+        </View>
+    );
+
 }
 
 const styles = StyleSheet.create({
