@@ -33,7 +33,7 @@ export default function App() {
                 inactiveTintColor: 'gray',
             }}
         >
-            <Tab.Screen name="Lembretes" component={Lembretes} />
+            {/* <Tab.Screen name="Lembretes" component={Lembretes} /> */}
             <Tab.Screen name="Notas" component={Notas} />
             <Tab.Screen name="Configurações" component={Configurações} />
         </Tab.Navigator>

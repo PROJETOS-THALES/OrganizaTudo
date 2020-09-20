@@ -90,7 +90,7 @@ export default function App({ navigation }) {
 
       <View style={styles.Links}>
         <Text style={styles.Link} onPress={() => { navigation.navigate('CriarConta'); }}>Criar uma Conta</Text>
-        <Text style={styles.Link} onPress={() => { navigation.navigate('RecuperarSenha'); }}>Esqueci minha senha</Text>
+        {/* <Text style={styles.Link} onPress={() => { navigation.navigate('RecuperarSenha'); }}>Esqueci minha senha</Text> */}
       </View>
 
     </View >
