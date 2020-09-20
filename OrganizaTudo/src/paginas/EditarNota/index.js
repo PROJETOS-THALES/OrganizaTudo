@@ -7,8 +7,8 @@ export default function App({ route, navigation }) {
     const { routesTitulo } = route.params;
     const { routesNota } = route.params;
 
-    const [titulo, setTitulo] = useState(JSON.stringify(routesTitulo));
-    const [nota, setNota] = useState(JSON.stringify(routesNota));
+    const [titulo, setTitulo] = useState(routesTitulo);
+    const [nota, setNota] = useState(routesNota);
 
     return (
         <View>
@@ -17,13 +17,13 @@ export default function App({ route, navigation }) {
                 onChangeText={(value) => {
                     setTitulo(value);
                 }}
-            > {JSON.stringify(routesTitulo)} </TextInput>
+            > {routesTitulo} </TextInput>
 
             <TextInput style={styles.Nota} multiline={true}
                 onChangeText={(value) => {
                     setNota(value);
                 }}
-            > {JSON.stringify(routesNota)} </TextInput>
+            > {routesNota} </TextInput>
 
             <View>
                 <Icon style={styles.floatingSalvar} name={'save'} size={60} color={'#35C0ED'}
