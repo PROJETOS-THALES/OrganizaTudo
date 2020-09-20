@@ -33,6 +33,41 @@ export default function App({ route, navigation }) {
                 }
                 else if (responseJson == '404') {
                     Alert.alert('Erro!', 'Sessão inválida!', null);
+                } else {
+                    navigation.navigate('Inicio', { screen: 'Notas' });
+                }
+            });
+
+    }
+
+    const editarNota = async () => {
+
+        fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/editarNota', {
+            method: 'POST',
+            body: JSON.stringify({
+                "usuario": {
+                    "apelido": await AsyncStorage.getItem('USERLOGIN'),
+                    "senha": await AsyncStorage.getItem('USERSECURITYCODE')
+                },
+                "notaAntiga": {
+                    "titulo": routesTitulo,
+                    "nota": routesNota
+                },
+                "notaNova": {
+                    "titulo": titulo,
+                    "nota": nota
+                }
+            })
+        })
+            .then((response) => response.json()).
+            then((responseJson) => {
+                if (responseJson == '500') {
+                    Alert.alert('Erro!', 'Obtivemos um problema ao deletar a Nota ... Por favor tente novamente mais tarde.', null);
+                }
+                else if (responseJson == '404') {
+                    Alert.alert('Erro!', 'Sessão inválida!', null);
+                } else {
+                    navigation.navigate('Inicio', { screen: 'Notas' });
                 }
             });
 
@@ -45,24 +80,26 @@ export default function App({ route, navigation }) {
                 onChangeText={(value) => {
                     setTitulo(value);
                 }}
-            > {routesTitulo} </TextInput>
+            >{routesTitulo}</TextInput>
 
             <TextInput style={styles.Nota} multiline={true}
                 onChangeText={(value) => {
                     setNota(value);
                 }}
-            > {routesNota} </TextInput>
+            >{routesNota}</TextInput>
 
             <View>
                 <Icon style={styles.floatingSalvar} name={'save'} size={60} color={'#35C0ED'}
                     onPress={() => {
 
                         // Salvar Nota
-                        if (this.state.Titulo == '' || this.state.Nota == '') {
-                            alert('Preencha todos os campos!');
+                        if (titulo == '') {
+                            Alert.alert('Erro!', 'Por favor, preencha o campo "Título" para continuar!', null);
+                        } else if (nota == '') {
+                            Alert.alert('Erro!', 'Por favor, preencha o campo "Nota" para continuar!', null);
                         }
                         else {
-                            alert('Título: ' + this.state.Titulo + ' | Nota: ' + this.state.Nota);
+                            editarNota();
                         }
 
                     }}
@@ -87,7 +124,6 @@ export default function App({ route, navigation }) {
                                     style: 'destructive',
                                     onPress: () => {
                                         deletarNota();
-                                        navigation.navigate('Inicio', { screen: 'Notas' });
                                     }
                                 },
                             ]

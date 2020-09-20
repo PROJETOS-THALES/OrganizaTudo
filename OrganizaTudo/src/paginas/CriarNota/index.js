@@ -16,9 +16,9 @@ export default function App({ navigation }) {
         var USERSECURITYCODE = await AsyncStorage.getItem('USERSECURITYCODE');
 
         if (titulo == '') {
-            Alert.alert('Erro!', 'Por Favor, preencha o campo "Título" para continuar!', null);
+            Alert.alert('Erro!', 'Por favor, preencha o campo "Título" para continuar!', null);
         } else if (nota == '') {
-            Alert.alert('Erro!', 'Por Favor, preencha o campo "Nota" para continuar!', null);
+            Alert.alert('Erro!', 'Por favor, preencha o campo "Nota" para continuar!', null);
         } else {
 
             var date = new Date().getDate(); //Current Date

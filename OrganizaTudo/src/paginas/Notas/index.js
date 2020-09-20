@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function App({ navigation }) {
 
     const [notas, setNotas] = useState([]);
-    const [nota, setNota] = useState([]);
 
     useEffect(() => {
         buscarNotas();
