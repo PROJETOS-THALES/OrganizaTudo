@@ -1,50 +1,28 @@
-import React, { Component } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { StyleSheet, View, TextInput } from 'react-native';
 
-import {
-    StyleSheet, View, Text, FlatList, TouchableOpacity, TextInput,
-} from 'react-native';
-
-export default class App extends Component {
+export default function App({ navigation }) {
 
     state = {
         lembretes: []
     }
 
-    componentDidMount() {
-        // this.buscarLembretes();
-    }
-
-    buscarLembretes = async () => {
-
-        /*fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/buscarNotas', {
-            method: 'POST',
-            body: JSON.stringify({
-                "usuario": await AsyncStorage.getItem('USERLOGGED')
-            })
-        })
-            .then((response) => response.json()).
-            then((responseJson) => {
-                this.setState({ notas: responseJson });
-            });
-        */
+    const buscarLembretes = async () => {
 
     }
 
-    render() {
+    return (
+        <View>
 
-        return (
-            <View>
-
-                <View style={styles.ContainerOpcoes}>
-                    <TextInput placeholder={'Buscar Lembrete'} style={styles.txtBuscarLembrete}></TextInput>
-                    <Icon style={styles.btnCriarLembrete} name={"plus-circle"} size={60} color={'#35C0ED'} />
-                </View>
-
+            <View style={styles.ContainerOpcoes}>
+                <TextInput placeholder={'Buscar Lembrete'} style={styles.txtBuscarLembrete}></TextInput>
+                <Icon style={styles.btnCriarLembrete} name={"plus-circle"} size={60} color={'#35C0ED'} />
             </View>
-        );
-    }
+
+        </View>
+    );
+
 }
 
 const styles = StyleSheet.create({

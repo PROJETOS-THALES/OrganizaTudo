@@ -1,21 +1,14 @@
-import React, { Component } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
-import {
-    StyleSheet,
-    View,
-    Text
-} from 'react-native';
+export default function App({ navigation }) {
 
-export default class App extends Component {
-    render() {
-        return (
-            <View style={styles.Header}>
-                <Text>Recuperar Senha</Text>
-            </View>
-        );
-    }
+    return (
+        <View style={styles.Header}>
+            <Text>Recuperar Senha</Text>
+        </View>
+    );
+
 }
 
 const styles = StyleSheet.create({

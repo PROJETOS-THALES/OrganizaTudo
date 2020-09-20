@@ -1,26 +1,23 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-    StyleSheet, View, Text, FlatList, TouchableOpacity, TextInput,
-} from 'react-native';
 
 export default function App({ navigation }) {
 
     const [notas, setNotas] = useState([]);
+    const [nota, setNota] = useState([]);
 
-    // componentDidMount
     useEffect(() => {
         buscarNotas();
-    }, [])
+    }, []);
 
-    // componentDidUpdate
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             buscarNotas();
         });
         return unsubscribe;
-    }, [navigation])
+    }, [navigation]);
 
     const buscarNotas = async () => {
 
@@ -40,7 +37,7 @@ export default function App({ navigation }) {
     const buscarNota = async (Titulo) => {
 
         if (Titulo == '') {
-            this.buscarNotas();
+            buscarNotas();
         }
         else {
             fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/buscarNotas', {
@@ -56,16 +53,6 @@ export default function App({ navigation }) {
                 });
         }
     }
-
-    /*React.useEffect(() => {
-        const unsubscribe = this.props.navigation.addListener('focus', () => {
-            // The screen is focused
-            // Call any action
-        });
-
-        // Return the function to unsubscribe from the event so it gets removed on unmount
-        return unsubscribe;
-    }, [this.props.navigation]);*/
 
     return (
         <View>
@@ -93,8 +80,8 @@ export default function App({ navigation }) {
 
                         onPress={() => {
                             navigation.navigate('EditarNota', {
-                                titulo: item.titulo,
-                                nota: item.nota
+                                routesTitulo: item.titulo,
+                                routesNota: item.nota
                             });
                         }}
 

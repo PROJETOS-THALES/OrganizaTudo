@@ -1,45 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {
-    StyleSheet, View, Text, Alert,
-} from 'react-native';
+export default function App({ navigation }) {
 
-export default class App extends Component {
-    render() {
-        return (
-            <View style={styles.ContainerSair}>
+    return (
+        <View style={styles.ContainerSair} >
 
-                <Icon style={styles.floatingSair} name={"power-off"} size={60} color={'#35C0ED'}
-                    onPress={() => {
+            <Icon style={styles.floatingSair} name={"power-off"} size={60} color={'#35C0ED'}
+                onPress={() => {
 
-                        Alert.alert(
-                            'Tem certeza?',
-                            'Se você sair, será necessário efetuar Login novamente para acessar sua conta!',
-                            [
-                                {
-                                    text: "Cancelar",
-                                    style: 'cancel',
-                                    onPress: () => { }
-                                },
-                                {
-                                    text: 'Sair',
-                                    style: 'destructive',
-                                    onPress: () => {
-                                        AsyncStorage.removeItem('USERLOGGED')
-                                        AsyncStorage.removeItem('USERLOGIN')
-                                        AsyncStorage.removeItem('USERSECURITYCODE')
-                                        this.props.navigation.navigate('Login')
-                                    }
-                                },
-                            ]
-                        );
-                    }} />
+                    Alert.alert(
+                        'Tem certeza?',
+                        'Se você sair, será necessário efetuar Login novamente para acessar sua conta!',
+                        [
+                            {
+                                text: "Cancelar",
+                                style: 'cancel',
+                                onPress: () => { }
+                            },
+                            {
+                                text: 'Sair',
+                                style: 'destructive',
+                                onPress: () => {
+                                    AsyncStorage.removeItem('USERLOGGED')
+                                    AsyncStorage.removeItem('USERLOGIN')
+                                    AsyncStorage.removeItem('USERSECURITYCODE')
+                                    navigation.navigate('Login')
+                                }
+                            },
+                        ]
+                    );
+                }} />
 
-            </View >
-        );
-    }
+        </View >
+    );
+
 }
 
 const styles = StyleSheet.create({

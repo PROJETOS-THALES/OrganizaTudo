@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, TextInput, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 
-export default class App extends Component {
+export default function App({ navigation }) {
 
-    state = {
-        Titulo: '',
-        Nota: ''
-    }
+    const [titulo, setTitulo] = useState('');
+    const [nota, setNota] = useState('');
 
+    var click = false;
 
-
-
-    criarNota = async () => {
+    const criarNota = async () => {
 
         var USERLOGIN = await AsyncStorage.getItem('USERLOGIN');
         var USERSECURITYCODE = await AsyncStorage.getItem('USERSECURITYCODE');
 
-        if (this.state.Titulo == '' || this.state.Nota == '') {
-            alert('Preencha todos os campos!');
-        }
-        else {
+        if (titulo == '') {
+            Alert.alert('Erro!', 'Por Favor, preencha o campo "Título" para continuar!', null);
+        } else if (nota == '') {
+            Alert.alert('Erro!', 'Por Favor, preencha o campo "Nota" para continuar!', null);
+        } else {
 
             var date = new Date().getDate(); //Current Date
             var month = new Date().getMonth() + 1; //Current Month
@@ -40,8 +38,8 @@ export default class App extends Component {
                             senha: USERSECURITYCODE
                         },
                         nota: {
-                            titulo: this.state.Titulo,
-                            nota: this.state.Nota,
+                            titulo: titulo,
+                            nota: nota,
                             data: data
                         }
                     })
@@ -57,7 +55,7 @@ export default class App extends Component {
                         }
                         else {
                             Alert.alert('Sucesso!', 'Sua nova nota foi criada !!!', null);
-                            this.props.navigation.navigate('Inicio', { screen: 'Notas' });
+                            navigation.navigate('Inicio', { screen: 'Notas' });
                         }
 
                     }
@@ -66,39 +64,35 @@ export default class App extends Component {
         }
     }
 
-    render() {
+    return (<View>
 
-        var click = false;
+        <TextInput style={styles.Titulo} placeholder={'Título'}
+            onChangeText={(value) => {
+                setTitulo(value);
+            }}
+        />
 
-        return (<View>
+        <TextInput style={styles.Nota} multiline={true} placeholder={'Nota'}
+            onChangeText={(value) => {
+                setNota(value);
+            }}
+        />
 
-            <TextInput style={styles.Titulo} placeholder={'Título'}
-                onChangeText={(value) => {
-                    this.setState({ Titulo: value });
+        <View>
+            <Icon style={styles.floatingSalvar} name={'save'} size={60} color={'#35C0ED'}
+                onPress={() => {
+
+                    if (!click) {
+                        click = true;
+                        criarNota();
+                    }
+
                 }}
             />
+        </View>
 
-            <TextInput style={styles.Nota} multiline={true} placeholder={'Nota'}
-                onChangeText={(value) => {
-                    this.setState({ Nota: value });
-                }}
-            />
+    </View>);
 
-            <View>
-                <Icon style={styles.floatingSalvar} name={'save'} size={60} color={'#35C0ED'}
-                    onPress={() => {
-
-                        if (!click) {
-                            click = true;
-                            this.criarNota();
-                        }
-
-                    }}
-                />
-            </View>
-
-        </View>);
-    }
 }
 
 const styles = StyleSheet.create({
