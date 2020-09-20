@@ -48,13 +48,13 @@ export default function App({ navigation }) {
                 .then(
                     (responseJson) => {
                         if (responseJson == '500') {
-                            Alert.alert('Erro!', 'Obtivemos um problema ao criar a Nota ... Por Favor tente novamente mais tarde.', null);
+                            Alert.alert('Erro!', 'Obtivemos um problema ao criar a Nota ... Por favor tente novamente mais tarde.', null);
                         }
                         else if (responseJson == '404') {
                             Alert.alert('Erro!', 'Sessão inválida!', null);
                         }
                         else {
-                            Alert.alert('Sucesso!', 'Sua nova nota foi criada !!!', null);
+                            //Alert.alert('Sucesso!', 'Sua nova nota foi criada !!!', null);
                             navigation.navigate('Inicio', { screen: 'Notas' });
                         }
 

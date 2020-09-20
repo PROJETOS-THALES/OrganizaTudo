@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function App({ route, navigation }) {
@@ -9,6 +10,33 @@ export default function App({ route, navigation }) {
 
     const [titulo, setTitulo] = useState(routesTitulo);
     const [nota, setNota] = useState(routesNota);
+
+    const deletarNota = async () => {
+
+        fetch('https://webhooks.mongodb-realm.com/api/client/v2.0/app/organiza-tudo-luhho/service/API/incoming_webhook/deletarNota', {
+            method: 'POST',
+            body: JSON.stringify({
+                "usuario": {
+                    "apelido": await AsyncStorage.getItem('USERLOGIN'),
+                    "senha": await AsyncStorage.getItem('USERSECURITYCODE')
+                },
+                "nota": {
+                    "titulo": routesTitulo,
+                    "nota": routesNota
+                }
+            })
+        })
+            .then((response) => response.json()).
+            then((responseJson) => {
+                if (responseJson == '500') {
+                    Alert.alert('Erro!', 'Obtivemos um problema ao deletar a Nota ... Por favor tente novamente mais tarde.', null);
+                }
+                else if (responseJson == '404') {
+                    Alert.alert('Erro!', 'Sessão inválida!', null);
+                }
+            });
+
+    }
 
     return (
         <View>
@@ -45,9 +73,25 @@ export default function App({ route, navigation }) {
                 <Icon style={styles.floatingDeletar} name={'trash'} size={60} color={'#ed5135'}
                     onPress={() => {
 
-                        // Deletar Nota
-                        this.setState({ Titulo: '' });
-                        this.setState({ Nota: '' });
+                        Alert.alert(
+                            'Deseja deletar essa nota ?',
+                            'Após exclusão, não teremos como recuperar as anotações',
+                            [
+                                {
+                                    text: "Cancelar",
+                                    style: 'cancel',
+                                    onPress: () => { }
+                                },
+                                {
+                                    text: 'Deletar',
+                                    style: 'destructive',
+                                    onPress: () => {
+                                        deletarNota();
+                                        navigation.navigate('Inicio', { screen: 'Notas' });
+                                    }
+                                },
+                            ]
+                        );
 
                     }}
                 />
